@@ -99,7 +99,7 @@ preexec () {
 
 update_configs() {
     wget -O configs.zip https://github.com/grigorescu/Configs/zipball/master &>/dev/null
-    unzip -ju configs.zip &>/dev/null
+    unzip -juo configs.zip &>/dev/null
     source .zshrc
     rm configs.zip
 }
