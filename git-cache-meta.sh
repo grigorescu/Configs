@@ -14,8 +14,8 @@ case $@ in
     --store|--stdout)
     case $1 in --store) exec > $GIT_CACHE_META_FILE; esac
     find $(git ls-files)\
-        \( -printf 'chown %U %p\n' \) \
-        \( -printf 'chgrp %G %p\n' \) \
+        \( -printf 'chown %u %p\n' \) \
+        \( -printf 'chgrp %g %p\n' \) \
         \( -printf 'touch -c -d "%AY-%Am-%Ad %AH:%AM:%AS" %p\n' \) \
         \( -printf 'chmod %#m %p\n' \) ;;
     --apply) sh -e $GIT_CACHE_META_FILE;;

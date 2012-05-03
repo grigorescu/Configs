@@ -1,44 +1,44 @@
-chown 1000 .config/awesome/background.jpg
-chgrp 100 .config/awesome/background.jpg
+chown vladg .config/awesome/background.jpg
+chgrp users .config/awesome/background.jpg
 touch -c -d "2012-05-03 14:05:42.9862584370" .config/awesome/background.jpg
 chmod 0644 .config/awesome/background.jpg
-chown 1000 .config/awesome/rc.lua
-chgrp 100 .config/awesome/rc.lua
+chown vladg .config/awesome/rc.lua
+chgrp users .config/awesome/rc.lua
 touch -c -d "2012-05-03 14:05:42.9895917710" .config/awesome/rc.lua
 chmod 0644 .config/awesome/rc.lua
-chown 1000 .config/awesome/spotify.py
-chgrp 100 .config/awesome/spotify.py
+chown vladg .config/awesome/spotify.py
+chgrp users .config/awesome/spotify.py
 touch -c -d "2012-05-03 10:35:49.3328613290" .config/awesome/spotify.py
 chmod 0755 .config/awesome/spotify.py
-chown 1000 .config/awesome/theme.lua
-chgrp 100 .config/awesome/theme.lua
+chown vladg .config/awesome/theme.lua
+chgrp users .config/awesome/theme.lua
 touch -c -d "2012-05-03 14:05:42.9895917710" .config/awesome/theme.lua
 chmod 0644 .config/awesome/theme.lua
-chown 1000 .emacs
-chgrp 100 .emacs
+chown vladg .emacs
+chgrp users .emacs
 touch -c -d "2012-05-03 14:05:42.9895917710" .emacs
 chmod 0644 .emacs
-chown 1000 .git_cache_meta
-chgrp 100 .git_cache_meta
-touch -c -d "2012-05-03 13:59:15.4429231430" .git_cache_meta
+chown vladg .git_cache_meta
+chgrp users .git_cache_meta
+touch -c -d "2012-05-03 14:07:01.6395921710" .git_cache_meta
 chmod 0644 .git_cache_meta
-chown 1000 .gitignore
-chgrp 100 .gitignore
+chown vladg .gitignore
+chgrp users .gitignore
 touch -c -d "2012-05-03 14:05:42.9895917710" .gitignore
 chmod 0644 .gitignore
-chown 1000 .screenrc
-chgrp 100 .screenrc
+chown vladg .screenrc
+chgrp users .screenrc
 touch -c -d "2012-05-03 14:05:42.9895917710" .screenrc
 chmod 0644 .screenrc
-chown 1000 .ssh/config
-chgrp 100 .ssh/config
-touch -c -d "2012-05-03 14:05:42.9895917710" .ssh/config
+chown vladg .ssh/config
+chgrp users .ssh/config
+touch -c -d "2012-05-03 14:07:00.7895921650" .ssh/config
 chmod 0600 .ssh/config
-chown 1000 .zshrc
-chgrp 100 .zshrc
+chown vladg .zshrc
+chgrp users .zshrc
 touch -c -d "2012-05-03 14:05:53.7829251610" .zshrc
 chmod 0644 .zshrc
-chown 1000 git-cache-meta.sh
-chgrp 100 git-cache-meta.sh
-touch -c -d "2012-05-03 13:59:00.3262564000" git-cache-meta.sh
+chown vladg git-cache-meta.sh
+chgrp users git-cache-meta.sh
+touch -c -d "2012-05-03 14:11:37.4529269020" git-cache-meta.sh
 chmod 0755 git-cache-meta.sh
