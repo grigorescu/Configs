@@ -75,7 +75,6 @@ alias mv='nocorrect mv'       # no spelling correction
 alias cp='nocorrect cp'
 alias mkdir='nocorrect mkdir'
 alias grep='grep --color'
-alias update_configs='git clone git://github.com/grigorescu/Configs'
 alias emacs=$EDITOR
 
 ## Exports
@@ -96,6 +95,13 @@ preexec () {
         local SHORTHOST=`echo $HOST | cut -f1 -d"."`
         echo -ne "\ek$SHORTHOST\e\\"
     fi
+}
+
+update_configs() {
+    wget -O configs.zip https://github.com/grigorescu/Configs/zipball/master &>/dev/null
+    unzip -ju configs.zip &>/dev/null
+    source .zshrc
+    rm configs.zip
 }
 
 extract() {
