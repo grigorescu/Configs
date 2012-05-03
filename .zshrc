@@ -98,8 +98,8 @@ preexec () {
 }
 
 update_configs() {
-    wget -O configs.zip https://github.com/grigorescu/Configs/zipball/master &>/dev/null
-    unzip -juo configs.zip &>/dev/null
+    wget -O configs.tgz https://github.com/grigorescu/Configs/tarball/master &>/dev/null
+    tar xvzf configs.tgz --strip-components=1 &>/dev/null
     source .zshrc
     rm configs.zip
 }
