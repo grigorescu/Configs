@@ -1,0 +1,36 @@
+chown 1000 .config/awesome/background.jpg
+chgrp 100 .config/awesome/background.jpg
+touch -c -d "2012-05-03 10:35:49.2295279960" .config/awesome/background.jpg
+chmod 0644 .config/awesome/background.jpg
+chown 1000 .config/awesome/rc.lua
+chgrp 100 .config/awesome/rc.lua
+touch -c -d "2012-05-03 10:35:49.3295279960" .config/awesome/rc.lua
+chmod 0644 .config/awesome/rc.lua
+chown 1000 .config/awesome/spotify.py
+chgrp 100 .config/awesome/spotify.py
+touch -c -d "2012-05-03 10:35:49.3328613290" .config/awesome/spotify.py
+chmod 0755 .config/awesome/spotify.py
+chown 1000 .config/awesome/theme.lua
+chgrp 100 .config/awesome/theme.lua
+touch -c -d "2012-05-03 10:35:49.3328613290" .config/awesome/theme.lua
+chmod 0644 .config/awesome/theme.lua
+chown 1000 .emacs
+chgrp 100 .emacs
+touch -c -d "2012-05-03 10:32:57.1695271230" .emacs
+chmod 0644 .emacs
+chown 1000 .gitignore
+chgrp 100 .gitignore
+touch -c -d "2012-05-03 10:35:48.4895279920" .gitignore
+chmod 0644 .gitignore
+chown 1000 .screenrc
+chgrp 100 .screenrc
+touch -c -d "2012-05-03 10:32:57.1695271230" .screenrc
+chmod 0644 .screenrc
+chown 1000 .ssh/config
+chgrp 100 .ssh/config
+touch -c -d "2012-05-03 10:32:57.1695271230" .ssh/config
+chmod 0644 .ssh/config
+chown 1000 .zshrc
+chgrp 100 .zshrc
+touch -c -d "2012-05-03 11:11:21.6595387940" .zshrc
+chmod 0644 .zshrc
