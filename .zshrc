@@ -80,6 +80,11 @@ alias emacs=$EDITOR
 ## Exports
 export LESS="-i -F -M -# 5"
 
+# Source our keychain file
+if [[ -a ~/.keychain/`hostname`-sh ]]; then
+    source ~/.keychain/`hostname`-sh
+fi
+
 ## Special su stuff for SMG
 if [[ -a /etc/psg.conf ]]; then
     if grep 'release 6' /etc/redhat-release &> /dev/null; then
@@ -102,6 +107,8 @@ update_configs() {
     tar xvzf configs.tgz --strip-components=1 &>/dev/null
     source .zshrc
     rm configs.tgz
+    ./git-cache-meta.sh --apply
+    rm git-cache-meta.sh .git_cache_meta
 }
 
 extract() {
