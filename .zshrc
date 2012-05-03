@@ -6,7 +6,7 @@ SAVEHIST=10000
 # If we have a ZDOTDIR set, we keep it. Otherwise, set it to the user's home directory.
 ZDOTDIR=${ZDOTDIR-/home/$USER}
 
-EDITOR="emacs -l $ZDOTDIR/.emacs"
+EDITOR="emacs -nw -l $ZDOTDIR/.emacs"
 
 # Compinit - completion
 autoload -U compinit; compinit -d $HOME/.zcompdump
@@ -75,6 +75,7 @@ alias mv='nocorrect mv'       # no spelling correction
 alias cp='nocorrect cp'
 alias mkdir='nocorrect mkdir'
 alias grep='grep --color'
+alias update_configs='git clone git://github.com/grigorescu/Configs'
 alias emacs=$EDITOR
 
 ## Exports
