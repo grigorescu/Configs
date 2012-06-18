@@ -85,15 +85,6 @@ if [[ -a ~/.keychain/`hostname`-sh ]]; then
     source ~/.keychain/`hostname`-sh
 fi
 
-## Special su stuff for SMG
-if [[ -a /etc/psg.conf ]]; then
-    if grep 'release 6' /etc/redhat-release &> /dev/null; then
-	su() { service=$1; [[ "$1" == "-" ]] && service=$2; /bin/su - $service --session-command "ZDOTDIR=$ZDOTDIR /bin/zsh" }
-    elif grep 'release 4' /etc/redhat-release &> /dev/null; then
-	su() { service=$1; [[ "$1" == "-" ]] && service=$2; /bin/su - $service -s /bin/sh -c "ZDOTDIR=$ZDOTDIR /bin/zsh" }
-    fi
-zstyle ':completion:*' users ls /services | egrep -v 'lost\+found|scratch|www|nagios|ftp|smg-p'
-fi
 ## Set the TERM name to the hostname
 preexec () {
     if [[ "$TERM" == "screen" ]]; then
