@@ -23,6 +23,12 @@
     (load-file dot-emacs))
   (message "Re-initialized!"))
 
+(require 'bro-mode)
+
+(autoload 'puppet-mode "puppet-mode" "Major mode for editing puppet manifests")
+
+(add-to-list 'auto-mode-alist '("\\.pp$" . puppet-mode))
+
 ;; Mail
 ;;;;;;;
 
