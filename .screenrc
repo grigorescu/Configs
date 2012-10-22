@@ -7,6 +7,7 @@ defbce on
 
 startup_message off
 vbell off
+defshell zsh
 
 hardstatus on
 hardstatus alwayslastline
