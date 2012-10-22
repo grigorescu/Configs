@@ -21,7 +21,6 @@ autoload -U zmv
 # Auto-escape special chars in URLs:
 autoload -U url-quote-magic
 zle -N self-insert url-quote-magic
-#zstyle -e ':url-quote-magic:*' url-seps 'reply=(";&<>${histchars[1]}")'
 zstyle -e ':url-quote-magic:*' url-seps 'reply=("&<${histchars[1]}")'
 
 # We like kewl prompts
@@ -56,7 +55,7 @@ zstyle ':completion:*:processes-names' command 'ps -u$USER -o comm='
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:descriptions' format '%U%B%d%b%u'
 zstyle ':completion:*:warnings' format '%BSorry, no matches for: %d%b'
-zstyle :compinstall filename '/home/vlad/.zshrc'
+zstyle :compinstall filename "$ZDOTDIR/.zshrc"
 zstyle ':completion:*' menu select=1 _complete _ignored _approximate
 zstyle -e ':completion:*:approximate:*' max-errors 'reply=( $(( ($#PREFIX+$#SUFFIX)/2 )) numeric )'
 zstyle ':completion:*::::' completer _expand _complete _ignored _approximate
@@ -78,7 +77,7 @@ alias grep='grep --color'
 alias emacs=$EDITOR
 
 ## Exports
-export LESS="-i -F -M -# 5"
+export LESS="--ignore-case --no-init --quit-if-one-screen --LONG-PROMPT --shift 5"
 
 # Source our keychain file
 if [[ -a ~/.keychain/`hostname`-sh ]]; then
