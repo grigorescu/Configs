@@ -1,5 +1,5 @@
 shell -${SHELL}
-defscrollback 2048
+defscrollback 10000
 defutf8 on
 defflow off
 attrcolor b ".I"
@@ -12,10 +12,12 @@ hardstatus on
 hardstatus alwayslastline
 
 #escape `~
-hardstatus alwayslastline
-hardstatus string '%{gk}[ %{G}%H %{g}][%= %{wk}%?%-Lw%?%{=b kR}(%{W}%n*%f %t%?(%u)%?%{=b kR})%{= kw}%?%+Lw%?%?%= %{g}][%{Y}%l%{g}]%{=b C}[ %m/%d %c ]%{W}'
-bindkey -d -k kb stuff "\010"
-bindkey -k F3 command
+#hardstatus alwayslastline
+#hardstatus string '%{gk}[%= %{wk}%?%-Lw%?%{=b kR}(%{W}%n*%f %t%?(%u)%?%{=b kR})%{= kw}%?%+Lw%?%?%= %{g}][%{Y}%l%{g}]%{=b C}[ %m/%d %c ]%{W}'
+hardstatus string '%{gk}[%= %{wk}%?%-w%?%n %{Bk}%t%{wk}%?%+w%? %= %{g}][%{Y}%l%{g}]%{gk}[ %m/%d %c ]%{W}'
+#bindkey -d -k kb stuff "\010"
+#bindkey -k F3 command
+#caption always "%{= kw}%-w%{= BW}%n %t%{-}%+w"
 
 #caption always "%{kB}%?%-Lw%?%{bw}%n*%f %t%?(%u)%?%{kB}%?%+Lw%?"
 #hardstatus alwayslastline "%{BW}%16=%l %{BW}%50=%d/%m/%Y %{BW}%80=%c%="
