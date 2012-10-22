@@ -4,7 +4,7 @@ HISTSIZE=10000
 SAVEHIST=10000
 
 # If we have a ZDOTDIR set, we keep it. Otherwise, set it to the user's home directory.
-ZDOTDIR=${ZDOTDIR-/home/$USER}
+ZDOTDIR=${ZDOTDIR-$HOME}
 
 EDITOR="emacs -nw -l $ZDOTDIR/.emacs"
 
