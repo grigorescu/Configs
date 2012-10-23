@@ -77,7 +77,7 @@ alias grep='grep --color'
 alias emacs=$EDITOR
 
 ## Exports
-export LESS="--ignore-case --no-init --quit-if-one-screen --LONG-PROMPT --shift 5"
+export LESS="--ignore-case --no-init --quit-if-one-screen --LONG-PROMPT --shift 5 --raw-control-chars"
 
 # Source our keychain file
 if [[ -a ~/.keychain/`hostname`-sh ]]; then
