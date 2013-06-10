@@ -25,7 +25,10 @@ chmod 0644 .emacs
 chown vladg .emacs.d/site-lisp/bro-mode.el
 chgrp users .emacs.d/site-lisp/bro-mode.el
 touch -c -d "2012-06-18 11:13:26.7583524790" .emacs.d/site-lisp/bro-mode.el
-chmod 0644 .emacs.d/site-lisp/bro-mode.el
+chown vladg .emacs.d/site-lisp/pac-mode.el
+chgrp users .emacs.d/site-lisp/pac-mode.el
+touch -c -d "2012-06-18 11:13:26.7583524790" .emacs.d/site-lisp/pac-mode.el
+chmod 0644 .emacs.d/site-lisp/pac-mode.el
 chown vladg .emacs.d/site-lisp/puppet-mode.el
 chgrp users .emacs.d/site-lisp/puppet-mode.el
 touch -c -d "2012-06-18 11:13:50.9563539610" .emacs.d/site-lisp/puppet-mode.el

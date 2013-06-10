@@ -24,6 +24,7 @@
   (message "Re-initialized!"))
 
 (require 'bro-mode)
+(require 'pac-mode)
 
 (autoload 'puppet-mode "puppet-mode" "Major mode for editing puppet manifests")
 
