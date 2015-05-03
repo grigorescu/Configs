@@ -3,6 +3,8 @@ HISTFILE=~/.histfile
 HISTSIZE=10000
 SAVEHIST=10000
 
+PATH="$HOME/bin:$PATH"
+
 # If we have a ZDOTDIR set, we keep it. Otherwise, set it to the user's home directory.
 ZDOTDIR=${ZDOTDIR-$HOME}
 
@@ -77,7 +79,7 @@ alias grep='grep --color'
 alias emacs=$EDITOR
 
 ## Exports
-export LESS="--ignore-case --no-init --quit-if-one-screen --LONG-PROMPT --shift 5 --raw-control-chars"
+export LESS="--ignore-case --no-init --quit-if-one-screen --LONG-PROMPT --shift 5 --RAW-CONTROL-CHARS"
 
 # Source our keychain file
 if [[ -a ~/.keychain/`hostname`-sh ]]; then
