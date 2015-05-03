@@ -21,6 +21,9 @@
 (dolist (mode '(column-number-mode line-number-mode))
   (when (fboundp mode) (funcall mode t)))
 
+(require 'bro-mode)
+(require 'pac-mode)
+
 (dolist (mode-hook '(text-mode-hook prog-mode-hook conf-mode-hook))
   (add-hook mode-hook
             (lambda ()

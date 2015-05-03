@@ -1,8 +1,11 @@
+;; This was done for personal edification and steals from Scott Andrew Borton's
+;; Mode Tutorial with aplomb and apologies.
+
 (defvar pac-mode-hook nil)
 
 (defvar pac-mode-map
   (let ((map (make-keymap)))
-    (define-key map (kbd "RET") 'align-newline-and-indent)
+    (define-key map "\C-j" 'newline-and-indent)
     map)
   "Keymap for BinPAC major mode")
 
@@ -176,4 +179,3 @@
   (run-hooks 'pac-mode-hook))
 
 (provide 'pac-mode)
-
