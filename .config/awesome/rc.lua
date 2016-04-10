@@ -55,8 +55,9 @@ myawesomemenu = {
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
                                     { "terminal", terminal },
+                                    { "emacs", "emacsclient -c" },
 				    { "browser", "chromium" },
-				    { "spotify", "spotify" },
+				    { "spotify", "/opt/spotify/spotify-client/spotify" },
                                   }
                         })
 
@@ -236,6 +237,10 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey }, "F10", function() exec("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous") end),
     awful.key({ modkey }, "F11", function() exec("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause") end),
     awful.key({ modkey, "Control" }, "F11", function() exec("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Stop") end),
+    awful.key({ modkey }, "F9", function()
+		 exec("amixer sset Line toggle -q")
+		 exec("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause")
+				end),
 
     -- Prompt
     awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
@@ -327,15 +332,12 @@ awful.rules.rules = {
                      focus = true,
                      keys = clientkeys,
                      buttons = clientbuttons } },
-    { rule = { class = "MPlayer" },
-      properties = { floating = true } },
+    { rule = { class = "Spotify" },
+      properties = { tag = tags[1][9] } },
+    { rule = { class = "Chromium-browser" },
+      properties = { tag = tags[1][3] } },
     { rule = { class = "pinentry" },
       properties = { floating = true } },
-    { rule = { class = "gimp" },
-      properties = { floating = true } },
-    -- Set Chromium to always map on tags number 2 of screen 1.
-    -- { rule = { class = "Chromium" },
-    --   properties = { tag = tags[1][2] } },
 }
 -- }}}
 
@@ -366,10 +368,8 @@ client.add_signal("manage", function (c, startup)
     end
 end)
 
-awful.util.spawn_with_shell("sleep 10 && xmodmap -pm && xmodmap ~/.xmodmap -verbose && xmodmap -pm")
-awful.util.spawn_with_shell("spotify")
+awful.util.spawn_with_shell("/opt/spotify/spotify-client/spotify")
 awful.util.spawn_with_shell("chromium")
-awful.util.spawn_with_shell("thunderbird")
 
 
 client.add_signal("focus", function(c) c.border_color = beautiful.border_focus end)

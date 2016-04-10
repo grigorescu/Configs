@@ -3,6 +3,8 @@ HISTFILE=~/.histfile
 HISTSIZE=10000
 SAVEHIST=10000
 
+PATH="$HOME/bin:$PATH"
+
 # If we have a ZDOTDIR set, we keep it. Otherwise, set it to the user's home directory.
 ZDOTDIR=${ZDOTDIR-$HOME}
 
