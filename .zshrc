@@ -120,7 +120,7 @@ preexec () {
 }
 
 _install_dep() {
-    $COMMAND=$1
+    COMMAND=$1
     typeset -A pre_install_cmd
     pre_install_cmd=(ubuntu "sudo -v" redhat "sudo -v")
     typeset -A install_cmd
