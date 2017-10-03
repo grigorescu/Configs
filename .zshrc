@@ -246,32 +246,27 @@ else
 fi
 
 if [[ -z "$TMUX" && -z "$EMACS" && -z "$VIM" ]]; then
-    powerline-daemon -q
+    echo "Want to connect to tmux"
+    if [[ -z "$POWERLINE_COMMAND" ]]; then
+        powerline-daemon -q
+    fi
     # Create a session if no session has been defined in tmux.conf.
     if ! tmux has-session 2> /dev/null; then
+        echo "No tmux session found, starting one"
         tmux_session='main'
         tmux \
             new-session -d -s "$tmux_session" \; \
             set-option -t "$tmux_session" destroy-unattached off &> /dev/null
     fi
     # Attach to the 'prezto' session or to the last session used.
+    echo "Connecting to tmux..."
     exec tmux attach-session
 elif [[ -n "$TMUX" ]]; then
+    echo "In tmux, powerline time"
     powerline-config tmux setup
 fi
-
-# fi
-
-
-# if [[ -z "$TMUX" u
-#     powerline-daemon -q
-#     powerline-config tmux setup
-# fi
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_TMUX=0
-
-# Set our prompt to something cool-looking.
-#export PS1="%{$fg[green]%}%n@%m%{$reset_color%} %{$fg[blue]%}%1~ %{$reset_color%}%% "
