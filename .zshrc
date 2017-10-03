@@ -31,7 +31,7 @@ else
     export EDITOR="emacs -nw"
 fi
 
-if ! which lesspipe.sh &> /dev/null;
+if which lesspipe.sh &> /dev/null;
 then
     export LESSOPEN="| lesspipe.sh %s"
 fi
