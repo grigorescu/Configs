@@ -171,8 +171,8 @@ update_configs() {
 }
 
 install_configs() {
-    update_configs()
-    check_config_deps()
+    update_configs
+    check_config_deps
 }
 
 extract() {
