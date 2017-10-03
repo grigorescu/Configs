@@ -127,11 +127,11 @@ _install_dep() {
     install_cmd=(ubuntu "sudo apt-get install" redhat "sudo yum install" apple "brew install")
     typeset -A package_name
     package_name=(git git tmux tmux emacs-nox emacs-nox)
-    if [[ $VENDOR=="redhat" ]]; then
+    if [[ "$VENDOR" == "redhat" ]]; then
         package_name[pip]=python2-pip
-    elif [[ $VENDOR=="ubuntu" ]]; then
+    elif [[ "$VENDOR" == "ubuntu" ]]; then
         package_name[pip]=python-pip
-    elif [[ $VENDOR=="apple" ]]; then
+    elif [[ "$VENDOR" == "apple" ]]; then
         package_name[pip]=pip
     fi
 
