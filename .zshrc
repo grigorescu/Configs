@@ -245,7 +245,7 @@ else
     install_configs
 fi
 
-if [[ -z "$ITERM_PROFILE" && -z "$TMUX" && -z "$EMACS" && -z "$VIM" && -z "XMODIFIERS"]]; then
+if [[ -z "$ITERM_PROFILE" && -z "$TMUX" && -z "$EMACS" && -z "$VIM" && -z "XMODIFIERS" ]]; then
     if [[ -z "$POWERLINE_COMMAND" ]]; then
         powerline-daemon -q
     fi
