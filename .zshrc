@@ -119,47 +119,46 @@ preexec () {
     fi
 }
 
-check_config_deps() {
-    if ! which git &> /dev/null;
-    then
-        echo "git not found"
-        if [[ $VENDOR == "ubuntu" ]]; then
-            sudo apt-get install git
-        elif [[ $VENDOR == "apple" ]]; then
-            brew install git
-        else
-            echo "Don't know how to install git for $VENDOR"
-            return 1
-        fi
+_install_dep() {
+    $COMMAND=$1
+    typeset -A pre_install_cmd
+    pre_install_cmd=(ubuntu "sudo -v" redhat "sudo -v")
+    typeset -A install_cmd
+    install_cmd=(ubuntu "sudo apt-get install" redhat "sudo yum install" apple "brew install")
+    typeset -A package_name
+    package_name=(git git tmux tmux)
+    if [[ $VENDOR=="redhat" ]]; then
+        package_name[pip]=python2-pip
+    elif [[ $VENDOR=="ubuntu" ]]; then
+        package_name[pip]=python-pip
+    elif [[ $VENDOR=="apple" ]]; then
+        package_name[pip]=pip
     fi
 
-    if ! which pip &> /dev/null;
+    if ! which $COMMAND &> /dev/null;
     then
-        echo "pip not found"
-        if [[ $VENDOR == "ubuntu" ]]; then
-            sudo apt-get install python-pip
-        elif [[ $VENDOR == "apple" ]]; then
-            brew install python
-        else
-            echo "Don't know how to install pip for $VENDOR"
+        echo "$COMMAND not found"
+        if [[ -z ${install_cmd[$VENDOR]} ]]; then
+            echo "Don't know how to install $COMMAND for $VENDOR"
             return 1
         fi
+
+        if [[ -n ${pre_install_cmd[$VENDOR]} ]]; then
+            $(${pre_install_cmd[$VENDOR]} || echo "pre-install command failed")
+            return 1
+        fi
+
+        $("${install_cmd[$VENDOR]} ${package_name}[$COMMAND]") || echo "install command failed"
     fi
+
+}
+
+check_config_deps() {
+    _install_dep git
+    _install_dep pip
 
     pip install --user powerline-status
-
-    if ! which tmux &> /dev/null;
-    then
-        echo "tmux not found"
-        if [[ $VENDOR == "ubuntu" ]]; then
-            sudo apt-get install tmux
-        elif [[ $VENDOR == "apple" ]]; then
-            brew install tmux
-        else
-            echo "Don't know how to install tmux for $VENDOR"
-            return 1
-        fi
-    fi
+    _install_dep tmux
 }
 
 update_configs() {
