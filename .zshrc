@@ -126,7 +126,7 @@ _install_dep() {
     typeset -A install_cmd
     install_cmd=(ubuntu "sudo apt-get install" redhat "sudo yum install" apple "brew install")
     typeset -A package_name
-    package_name=(git git tmux tmux)
+    package_name=(git git tmux tmux emacs-nox emacs-nox)
     if [[ $VENDOR=="redhat" ]]; then
         package_name[pip]=python2-pip
     elif [[ $VENDOR=="ubuntu" ]]; then
@@ -156,9 +156,11 @@ _install_dep() {
 check_config_deps() {
     _install_dep git
     _install_dep pip
-
     pip install --user powerline-status
     _install_dep tmux
+    if [[ $VENDOR != "apple" ]]; then
+        _install_dep emacs-nox
+    fi
 }
 
 update_configs() {
