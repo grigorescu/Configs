@@ -138,13 +138,13 @@ _install_dep() {
     if ! which $COMMAND &> /dev/null;
     then
         echo "$COMMAND not found"
-        if [[ -z ${install_cmd[$VENDOR]} ]]; then
+        if [[ -z "${install_cmd[$VENDOR]}" ]]; then
             echo "Don't know how to install $COMMAND for $VENDOR"
             return 1
         fi
 
-        if [[ -n ${pre_install_cmd[$VENDOR]} ]]; then
-            $(${pre_install_cmd[$VENDOR]} || echo "pre-install command failed")
+        if [[ -n "${pre_install_cmd[$VENDOR]}" ]]; then
+            $("${pre_install_cmd[$VENDOR]}" || echo "pre-install command failed")
             return 1
         fi
 
