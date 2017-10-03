@@ -171,8 +171,8 @@ update_configs() {
 }
 
 install_configs() {
-    update_configs
-    check_config_deps
+    update_configs()
+    check_config_deps()
 }
 
 extract() {
@@ -227,5 +227,25 @@ function hgrep () {
 # Colors!
 autoload -U colors && colors
 
+POWERLINE_PATH="python2.7/site-packages/powerline/bindings/zsh/powerline.zsh"
+
+if [[ -f "$ZDOTDIR/.lib/$POWERLINE_PATH" ]]; then
+    source "$ZDOTDIR/.lib/$POWERLINE_PATH"
+elif [[ -f "/usr/lib64/$POWERLINE_PATH" ]]; then
+    source "/usr/lib64/$POWERLINE_PATH"
+elif [[ -f "/usr/local/lib/$POWERLINE_PATH" ]]; then
+    source "/usr/local/lib/$POWERLINE_PATH"
+fi
+
+if [[ -z "$TMUX" ]]; then
+    powerline-daemon -q
+    powerline-config tmux setup
+fi
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_TMUX=0
+
 # Set our prompt to something cool-looking.
-export PS1="%{$fg[green]%}%n@%m%{$reset_color%} %{$fg[blue]%}%1~ %{$reset_color%}%% "
+#export PS1="%{$fg[green]%}%n@%m%{$reset_color%} %{$fg[blue]%}%1~ %{$reset_color%}%% "
