@@ -99,8 +99,23 @@ update_configs() {
     tar xvzf configs.tgz --strip-components=1 &>/dev/null
     source .zshrc
     rm configs.tgz
+    GROUP=$(stat -c '%G' $HOME)
+    sed -ie "s/ users / $GROUP /" .git_cache_meta
     ./git-cache-meta.sh --apply
     rm git-cache-meta.sh .git_cache_meta
+}
+
+install_configs() {
+    if ! which git &> /dev/null;
+    then
+        echo "git not found"
+        return 1
+    fi
+    update_configs
+    echo "Checking for installed utilities..."
+    which pip &> /dev/null|| echo "pip not found"
+    
+    which tmux &> /dev/null|| echo "tmux not found"
 }
 
 extract() {
