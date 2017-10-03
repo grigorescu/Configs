@@ -11,7 +11,10 @@ SAVEHIST=10000
 ZDOTDIR=${ZDOTDIR-$HOME}
 
 if [[ -d $ZDOTDIR/bin ]]; then
-    export PATH="$HOME/bin:$PATH"
+    export PATH="$ZDOTDIR/bin:$PATH"
+fi
+if [[ -d $ZDOTDIR/.local/bin ]]; then
+    export PATH="$ZDOTDIR/.local/bin:$PATH"
 fi
 
 export LESS="--ignore-case --no-init --quit-if-one-screen --LONG-PROMPT --shift 5 --RAW-CONTROL-CHARS"
