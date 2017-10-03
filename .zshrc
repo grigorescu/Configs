@@ -144,11 +144,11 @@ _install_dep() {
         fi
 
         if [[ -n "${pre_install_cmd[$VENDOR]}" ]]; then
-            $("${pre_install_cmd[$VENDOR]}" || echo "pre-install command failed")
+            eval "${pre_install_cmd[$VENDOR]} || echo 'pre-install command failed'"
             return 1
         fi
 
-        $("${install_cmd[$VENDOR]} ${package_name}[$COMMAND]") || echo "install command failed"
+        eval "${install_cmd[$VENDOR]} ${package_name}[$COMMAND] || echo 'install command failed'"
     fi
 
 }
