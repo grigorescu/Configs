@@ -100,7 +100,7 @@ update_configs() {
     source .zshrc
     rm configs.tgz
     GROUP=$(stat -c '%G' $HOME)
-    sed -ie "s/ users / $GROUP /" .git_cache_meta
+    sed -i '' -e "s/ users / $GROUP /" .git_cache_meta
     ./git-cache-meta.sh --apply
     rm git-cache-meta.sh .git_cache_meta
 }
@@ -114,7 +114,7 @@ install_configs() {
     update_configs
     echo "Checking for installed utilities..."
     which pip &> /dev/null|| echo "pip not found"
-    
+
     which tmux &> /dev/null|| echo "tmux not found"
 }
 
