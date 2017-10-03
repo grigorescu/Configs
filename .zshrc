@@ -94,28 +94,30 @@ preexec () {
     fi
 }
 
+check_config_deps() {
+    if ! which git &> /dev/null;
+    then
+        echo "git not found"
+        return 1
+    fi
+
+    which pip &> /dev/null|| echo "pip not found"
+    which tmux &> /dev/null|| echo "tmux not found"
+}
+
 update_configs() {
     wget -O configs.tgz https://github.com/grigorescu/Configs/tarball/master &>/dev/null
     tar xvzf configs.tgz --strip-components=1 &>/dev/null
     source .zshrc
     rm configs.tgz
     GROUP=$(stat -c '%G' $HOME)
-    sed -i '' -e "s/ users / $GROUP /" .git_cache_meta
+    sed -i.bak -e "s/ users / $GROUP /" .git_cache_meta && rm .git_cache_meta.bak
     ./git-cache-meta.sh --apply
     rm git-cache-meta.sh .git_cache_meta
 }
 
 install_configs() {
-    if ! which git &> /dev/null;
-    then
-        echo "git not found"
-        return 1
-    fi
     update_configs
-    echo "Checking for installed utilities..."
-    which pip &> /dev/null|| echo "pip not found"
-
-    which tmux &> /dev/null|| echo "tmux not found"
 }
 
 extract() {
