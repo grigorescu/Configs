@@ -245,11 +245,11 @@ else
     install_configs
 fi
 
-if [[ -n "$XMODIFIERS" ]]; then
+if [[ -n "$LC_TMUX" ]]; then
     echo "Already within tmux, so not attaching again."
 fi
 
-if [[ -z "$ITERM_PROFILE" && -z "$TMUX" && -z "$EMACS" && -z "$VIM" && -z "$XMODIFIERS" ]]; then
+if [[ -z "$ITERM_PROFILE" && -z "$TMUX" && -z "$EMACS" && -z "$VIM" && -z "$LC_TMUX" ]]; then
     if [[ -z "$POWERLINE_COMMAND" ]]; then
         powerline-daemon -q
     fi
@@ -267,13 +267,11 @@ elif [[ -n "$TMUX" ]]; then
     powerline-config tmux setup
 fi
 
-
-# I want to avoid tmux within tmux, so I abuse XMODIFIERS which is usually allowed to be passed through ssh
+# I want to avoid tmux within tmux, so I abuse LC_TMUX which is usually allowed to be passed through ssh
 # I also special case running with iterm, which uses tmux internally but supports nesting.
 if [[ -z "$ITERM_PROFILE" ]]; then
-    export XMODIFIERS="tmux"
+    export LC_TMUX="tmux"
 fi
-
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
