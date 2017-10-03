@@ -245,6 +245,10 @@ else
     install_configs
 fi
 
+if [[ -n "$XMODIFIERS" ]]; then
+    echo "Already within tmux"
+fi
+
 if [[ -z "$ITERM_PROFILE" && -z "$TMUX" && -z "$EMACS" && -z "$VIM" && -z "$XMODIFIERS" ]]; then
     if [[ -z "$POWERLINE_COMMAND" ]]; then
         powerline-daemon -q
