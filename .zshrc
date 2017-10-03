@@ -245,14 +245,12 @@ else
     install_configs
 fi
 
-if [[ -z "$TMUX" && -z "$EMACS" && -z "$VIM" ]]; then
-    echo "Want to connect to tmux"
+if [[ -z "$ITERM_PROFILE" && -z "$TMUX" && -z "$EMACS" && -z "$VIM" && -z "XMODIFIERS"]]; then
     if [[ -z "$POWERLINE_COMMAND" ]]; then
         powerline-daemon -q
     fi
     # Create a session if no session has been defined in tmux.conf.
     if ! tmux has-session 2> /dev/null; then
-        echo "No tmux session found, starting one"
         tmux_session='main'
         tmux \
             new-session -d -s "$tmux_session" \; \
@@ -262,9 +260,16 @@ if [[ -z "$TMUX" && -z "$EMACS" && -z "$VIM" ]]; then
     echo "Connecting to tmux..."
     exec tmux attach-session
 elif [[ -n "$TMUX" ]]; then
-    echo "In tmux, powerline time"
     powerline-config tmux setup
 fi
+
+
+# I want to avoid tmux within tmux, so I abuse XMODIFIERS which is usually allowed to be passed through ssh
+# I also special case running with iterm, which uses tmux internally but supports nesting.
+if [[ -z "$ITERM_PROFILE" ]]; then
+    export XMODIFIERS="tmux"
+fi
+
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
