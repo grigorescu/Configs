@@ -3104,8 +3104,12 @@ touch -c -d "2017-10-03 11:29:12.3579538370" .tmux/tomorrow-night.theme
 chmod 0644 .tmux/tomorrow-night.theme
 chown vladg .zshrc
 chgrp vladg .zshrc
-touch -c -d "2017-10-03 11:29:12.3579538370" .zshrc
+touch -c -d "2017-10-03 11:52:54.9431690740" .zshrc
 chmod 0644 .zshrc
+chown vladg bin/lesspipe.sh
+chgrp vladg bin/lesspipe.sh
+touch -c -d "2017-10-03 11:52:54.9431690740" bin/lesspipe.sh
+chmod 0755 bin/lesspipe.sh
 chown vladg git-cache-meta.sh
 chgrp vladg git-cache-meta.sh
 touch -c -d "2017-10-03 11:29:12.3579538370" git-cache-meta.sh
