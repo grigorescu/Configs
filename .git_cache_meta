@@ -1,7 +1,7 @@
-chown vladg .Xdefaults
-chgrp users .Xdefaults
-touch -c -d "2012-10-22 19:17:38.4386997830" .Xdefaults
-chmod 0644 .Xdefaults
+chown vladg .Xresources
+chgrp users .Xresources
+touch -c -d "2012-10-22 19:17:38.4386997830" .Xresources
+chmod 0644 .Xresources
 chown vladg .config/awesome/background.jpg
 chgrp users .config/awesome/background.jpg
 touch -c -d "2012-06-18 11:11:45.7953462990" .config/awesome/background.jpg
@@ -41,10 +41,6 @@ chown vladg .gitignore
 chgrp users .gitignore
 touch -c -d "2012-06-18 11:11:45.7973462990" .gitignore
 chmod 0644 .gitignore
-chown vladg .screenrc
-chgrp users .screenrc
-touch -c -d "2012-06-18 11:11:45.7973462990" .screenrc
-chmod 0644 .screenrc
 chown vladg .ssh/config
 chgrp users .ssh/config
 touch -c -d "2012-06-18 11:11:45.7973462990" .ssh/config
