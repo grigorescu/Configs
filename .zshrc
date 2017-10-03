@@ -11,10 +11,10 @@ SAVEHIST=10000
 ZDOTDIR=${ZDOTDIR-$HOME}
 
 if [[ -d $ZDOTDIR/bin ]]; then
-    export PATH="$ZDOTDIR/bin:$PATH"
+    [[ ":$PATH": != *":$ZDOTDIR/bin:"* ]] && export PATH="$ZDOTDIR/bin:$PATH"
 fi
 if [[ -d $ZDOTDIR/.local/bin ]]; then
-    export PATH="$ZDOTDIR/.local/bin:$PATH"
+    [[ ":$PATH": != *":$ZDOTDIR/.local/bin:"* ]] && export PATH="$ZDOTDIR/.local/bin:$PATH"
 fi
 
 export LESS="--ignore-case --no-init --quit-if-one-screen --LONG-PROMPT --shift 5 --RAW-CONTROL-CHARS"
@@ -239,6 +239,22 @@ elif [[ -f "/usr/lib64/$POWERLINE_PATH" ]]; then
 elif [[ -f "/usr/local/lib/$POWERLINE_PATH" ]]; then
     source "/usr/local/lib/$POWERLINE_PATH"
 fi
+
+if [[ -z "$TMUX" && -z "$EMACS" && -z "$VIM" ]]; then
+    tmux start-server
+
+    # Create a 'prezto' session if no session has been defined in tmux.conf.
+    if ! tmux has-session 2> /dev/null; then
+        tmux_session='main'
+        tmux \
+            new-session -d -s "$tmux_session" \; \
+            set-option -t "$tmux_session" destroy-unattached off &> /dev/null
+    fi
+
+    # Attach to the 'prezto' session or to the last session used.
+    exec tmux attach-session
+fi
+
 
 if [[ -z "$TMUX" ]]; then
     powerline-daemon -q
