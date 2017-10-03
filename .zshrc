@@ -8,7 +8,7 @@ SAVEHIST=10000
 ## Exports
 
 # If we have a ZDOTDIR set, we keep it. Otherwise, set it to the user's home directory.
-ZDOTDIR=${ZDOTDIR-$HOME}
+export ZDOTDIR=${ZDOTDIR-$HOME}
 
 if [[ -d $ZDOTDIR/bin ]]; then
     [[ ":$PATH": != *":$ZDOTDIR/bin:"* ]] && export PATH="$ZDOTDIR/bin:$PATH"
@@ -234,10 +234,15 @@ POWERLINE_PATH="python2.7/site-packages/powerline/bindings/zsh/powerline.zsh"
 
 if [[ -f "$ZDOTDIR/.lib/$POWERLINE_PATH" ]]; then
     source "$ZDOTDIR/.lib/$POWERLINE_PATH"
+elif [[ -f "$ZDOTDIR/.local/lib/$POWERLINE_PATH" ]]; then
+    source "$ZDOTDIR/.local/lib/$POWERLINE_PATH"
 elif [[ -f "/usr/lib64/$POWERLINE_PATH" ]]; then
     source "/usr/lib64/$POWERLINE_PATH"
 elif [[ -f "/usr/local/lib/$POWERLINE_PATH" ]]; then
     source "/usr/local/lib/$POWERLINE_PATH"
+else
+    echo "Could not find powerline"
+    install_configs
 fi
 
 if [[ -z "$TMUX" && -z "$EMACS" && -z "$VIM" ]]; then
