@@ -246,7 +246,7 @@ else
 fi
 
 if [[ -n "$XMODIFIERS" ]]; then
-    echo "Already within tmux"
+    echo "Already within tmux, so not attaching again."
 fi
 
 if [[ -z "$ITERM_PROFILE" && -z "$TMUX" && -z "$EMACS" && -z "$VIM" && -z "$XMODIFIERS" ]]; then
