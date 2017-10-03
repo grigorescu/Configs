@@ -1,0 +1,57 @@
+!! Fonts
+Xft.dpi: 96.0
+Xft.antialias:  true
+Xft.rgba:       rgb
+Xft.hinting:    false
+Xft.hintstyle:  hintnone
+
+URxvt.letterSpace: -1
+!URxvt.font:	xft:Source Code Pro:style=regular:pixelsize=12,xft:DejaVu Sans Condensed:pixelsize=12,xft:unifont:pixelsize=12
+!URxvt.boldFont:	xft:Source Code Pro:style=Semibold:pixelsize=12,xft:DejaVu Sans Condensed:style=Bold:pixelsize=12,xft:unifont:pixelsize=12
+URxvt.font:	xft:Source Code Pro:style=regular:pixelsize=12,xft:Literation Mono Powerline:style=Regular:pixelsize=12
+!URxvt.font:	xft:Literation Mono Powerline:style=Regular:pixelsize=12
+URxvt.boldFont:	xft:Source Code Pro:style=Semibold:pixelsize=12,xft:DejaVu Sans Condensed:style=Bold:pixelsize=12,xft:unifont:pixelsize=12
+
+
+!! Colors
+!TomorrowNightBright
+#define t_background        #000000
+#define t_current_line      #2a2a2a
+#define t_selection      	#424242
+#define t_foreground      	#eaeaea
+#define t_comment	     	#969896
+#define t_red		     	#d54e53
+#define t_orange	     	#e78c45
+#define t_yellow        	#e7c547
+#define t_green	        	#b9ca4a
+#define t_aqua	        	#70c0b1
+#define t_blue	        	#7aa6da
+#define t_purple        	#c397d8
+
+*.foreground:   t_foreground
+*.background:   t_background
+*.cursorColor:  #aeafad
+*.color0:       #000000
+*.color8:       #666666
+*.color1:       t_red
+*.color9:       #FF3334
+*.color2:       t_green
+*.color10:      #9ec400
+*.color3:       t_orange
+*.color11:      t_yellow
+*.color4:       t_blue
+*.color12:      t_blue
+*.color5:       t_purple
+*.color13:      #b777e0
+*.color6:       t_aqua
+*.color14:      #54ced6
+*.color7:       t_selection
+*.color15:      t_current_line
+
+!! URxvt config
+URxvt.depth: 32
+URxvt.background: [95]#000000
+URxvt.scrollBar: off
+URxvt.saveLines:	       	5500
+URxvt.cursorBlink:              false
+URxvt.cutchars:                 ()*,<>[]{}|
