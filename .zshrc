@@ -142,7 +142,7 @@ check_config_deps() {
             return 1
         fi
     fi
-/
+
     pip install --user powerline-status
 
     if ! which tmux &> /dev/null;
@@ -172,6 +172,7 @@ update_configs() {
 
 install_configs() {
     update_configs
+    check_config_deps
 }
 
 extract() {
