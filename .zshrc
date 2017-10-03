@@ -1,17 +1,42 @@
+[[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
+
 ## History - Save a lot of history
 HISTFILE=~/.histfile
 HISTSIZE=10000
 SAVEHIST=10000
 
-PATH="$HOME/bin:$PATH"
+## Exports
 
 # If we have a ZDOTDIR set, we keep it. Otherwise, set it to the user's home directory.
 ZDOTDIR=${ZDOTDIR-$HOME}
 
-EDITOR="emacs -nw -l $ZDOTDIR/.emacs"
+if [[ -d $ZDOTDIR/bin ]]; then
+    export PATH="$HOME/bin:$PATH"
+fi
+
+export LESS="--ignore-case --no-init --quit-if-one-screen --LONG-PROMPT --shift 5 --RAW-CONTROL-CHARS"
+export LANG='en_US.UTF-8'
+export LC_ALL="en_US.UTF-8"
+
+if [[ -d $ZDOTDIR/.local/lib64/python2.7/site-packages ]]; then
+    export PYTHONPATH="$ZDOTDIR/.local/lib64/python2.7/site-packages"
+fi
+
+if [[ -f $ZDOTDIR/.emacs ]]; then
+    export EDITOR="emacs -nw -l $ZDOTDIR/.emacs"
+else
+    export EDITOR="emacs -nw"
+fi
+
+if ! which lesspipe.sh &> /dev/null;
+then
+    export LESSOPEN="| lesspipe.sh %s"
+fi
+
+export EVENT_NOKQUEUE=1
 
 # Compinit - completion
-autoload -U compinit; compinit -d $HOME/.zcompdump
+autoload -U compinit; compinit -d $ZDOTDIR/.zcompdump
 
 # Select word style - use bash style word delimiters (whitespace, forward slashes, etc.)
 autoload -U select-word-style
@@ -29,7 +54,7 @@ zstyle -e ':url-quote-magic:*' url-seps 'reply=("&<${histchars[1]}")'
 autoload -U promptinit
 promptinit
 
-# Options set here: 
+# Options set here:
 #   - Do not enter command lines into the history list if they are duplicates of the previous event.
 #   - When searching for history entries in the line editor, do not display duplicates of a line previously found
 #   - If this is set, zsh sessions will append their history list to the history file, rather than overwrite it. Thus, multiple parallel zsh sessions will all have their history lists added to the history file, in the order they are killed.
@@ -78,9 +103,6 @@ alias mkdir='nocorrect mkdir'
 alias grep='grep --color'
 alias emacs=$EDITOR
 
-## Exports
-export LESS="--ignore-case --no-init --quit-if-one-screen --LONG-PROMPT --shift 5 --RAW-CONTROL-CHARS"
-
 # Source our keychain file
 if [[ -a ~/.keychain/`hostname`-sh ]]; then
     source ~/.keychain/`hostname`-sh
@@ -98,11 +120,43 @@ check_config_deps() {
     if ! which git &> /dev/null;
     then
         echo "git not found"
-        return 1
+        if [[ $VENDOR == "ubuntu" ]]; then
+            sudo apt-get install git
+        elif [[ $VENDOR == "apple" ]]; then
+            brew install git
+        else
+            echo "Don't know how to install git for $VENDOR"
+            return 1
+        fi
     fi
 
-    which pip &> /dev/null|| echo "pip not found"
-    which tmux &> /dev/null|| echo "tmux not found"
+    if ! which pip &> /dev/null;
+    then
+        echo "pip not found"
+        if [[ $VENDOR == "ubuntu" ]]; then
+            sudo apt-get install python-pip
+        elif [[ $VENDOR == "apple" ]]; then
+            brew install python
+        else
+            echo "Don't know how to install pip for $VENDOR"
+            return 1
+        fi
+    fi
+/
+    pip install --user powerline-status
+
+    if ! which tmux &> /dev/null;
+    then
+        echo "tmux not found"
+        if [[ $VENDOR == "ubuntu" ]]; then
+            sudo apt-get install tmux
+        elif [[ $VENDOR == "apple" ]]; then
+            brew install tmux
+        else
+            echo "Don't know how to install tmux for $VENDOR"
+            return 1
+        fi
+    fi
 }
 
 update_configs() {
