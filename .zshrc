@@ -165,7 +165,6 @@ check_config_deps() {
 update_configs() {
     wget -O configs.tgz https://github.com/grigorescu/Configs/tarball/master &>/dev/null
     tar xvzf configs.tgz --strip-components=1 &>/dev/null
-    source .zshrc
     rm configs.tgz
     GROUP=$(stat -c '%G' $HOME)
     sed -i.bak -e "s/ users / $GROUP /" .git_cache_meta && rm .git_cache_meta.bak
