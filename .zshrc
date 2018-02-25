@@ -237,8 +237,8 @@ if [[ -f "$ZDOTDIR/.lib/$POWERLINE_PATH" ]]; then
     source "$ZDOTDIR/.lib/$POWERLINE_PATH"
 elif [[ -f "$ZDOTDIR/.local/lib/$POWERLINE_PATH" ]]; then
     source "$ZDOTDIR/.local/lib/$POWERLINE_PATH"
-elif [[ -f "$ZDOTDIR/Library/Python/2.7/lib/python/site-packages" ]]; then
-    source "$ZDOTDIR/Library/Python/2.7/lib/python/site-packages"
+elif [[ -f "$ZDOTDIR/Library/Python/2.7/lib/python/site-packages/powerline/bindings/zsh/powerline.zsh" ]]; then
+    source "$ZDOTDIR/Library/Python/2.7/lib/python/site-packages/powerline/bindings/zsh/powerline.zsh"
 elif [[ -f "/usr/lib64/$POWERLINE_PATH" ]]; then
     source "/usr/lib64/$POWERLINE_PATH"
 elif [[ -f "/usr/local/lib/$POWERLINE_PATH" ]]; then
