@@ -16,6 +16,9 @@ fi
 if [[ -d $ZDOTDIR/.local/bin ]]; then
     [[ ":$PATH": != *":$ZDOTDIR/.local/bin:"* ]] && export PATH="$ZDOTDIR/.local/bin:$PATH"
 fi
+if [[ -d $ZDOTDIR/Library/Python/2.7/bin ]]; then
+    [[ ":$PATH": != *":$ZDOTDIR/Library/Python/2.7/bin:"* ]] && export PATH="$ZDOTDIR/Library/Python/2.7/bin:$PATH"
+fi
 
 export LESS="--ignore-case --no-init --quit-if-one-screen --LONG-PROMPT --shift 5 --RAW-CONTROL-CHARS"
 export LANG='en_US.UTF-8'
