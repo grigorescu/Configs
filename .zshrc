@@ -42,7 +42,7 @@ fi
 export EVENT_NOKQUEUE=1
 
 # Compinit - completion
-autoload -U compinit; compinit -u -d $ZDOTDIR/.zcompdump
+autoload -U compinit; compinit -i -d $ZDOTDIR/.zcompdump
 
 # Select word style - use bash style word delimiters (whitespace, forward slashes, etc.)
 autoload -U select-word-style
