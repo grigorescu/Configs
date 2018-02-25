@@ -166,8 +166,10 @@ update_configs() {
     wget -O configs.tgz https://github.com/grigorescu/Configs/tarball/master &>/dev/null
     tar xvzf configs.tgz --strip-components=1 &>/dev/null
     rm configs.tgz
-    GROUP=$(stat -c '%G' $HOME)
+    GROUP=$(groups $(whoami) | cut -d' ' -f1)
     sed -i.bak -e "s/ users / $GROUP /" .git_cache_meta && rm .git_cache_meta.bak
+    USER=$(whoami)
+    sed -i.bak -e "s/ vladg / $USER /" .git_cache_meta && rm .git_cache_meta.bak
     ./git-cache-meta.sh --apply
     rm git-cache-meta.sh .git_cache_meta
 }
