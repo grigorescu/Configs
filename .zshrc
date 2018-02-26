@@ -16,6 +16,9 @@ fi
 if [[ -d $ZDOTDIR/.local/bin ]]; then
     [[ ":$PATH": != *":$ZDOTDIR/.local/bin:"* ]] && export PATH="$ZDOTDIR/.local/bin:$PATH"
 fi
+if [[ -d $ZDOTDIR/Library/Python/2.7/bin ]]; then
+    [[ ":$PATH": != *":$ZDOTDIR/Library/Python/2.7/bin:"* ]] && export PATH="$ZDOTDIR/Library/Python/2.7/bin:$PATH"
+fi
 
 export LESS="--ignore-case --no-init --quit-if-one-screen --LONG-PROMPT --shift 5 --RAW-CONTROL-CHARS"
 export LANG='en_US.UTF-8'
@@ -39,7 +42,7 @@ fi
 export EVENT_NOKQUEUE=1
 
 # Compinit - completion
-autoload -U compinit; compinit -d $ZDOTDIR/.zcompdump
+autoload -U compinit; compinit -i -d $ZDOTDIR/.zcompdump
 
 # Select word style - use bash style word delimiters (whitespace, forward slashes, etc.)
 autoload -U select-word-style
@@ -165,10 +168,11 @@ check_config_deps() {
 update_configs() {
     wget -O configs.tgz https://github.com/grigorescu/Configs/tarball/master &>/dev/null
     tar xvzf configs.tgz --strip-components=1 &>/dev/null
-    source .zshrc
     rm configs.tgz
-    GROUP=$(stat -c '%G' $HOME)
+    GROUP=$(groups $(whoami) | cut -d' ' -f1)
     sed -i.bak -e "s/ users / $GROUP /" .git_cache_meta && rm .git_cache_meta.bak
+    USER=$(whoami)
+    sed -i.bak -e "s/ vladg / $USER /" .git_cache_meta && rm .git_cache_meta.bak
     ./git-cache-meta.sh --apply
     rm git-cache-meta.sh .git_cache_meta
 }
@@ -236,6 +240,8 @@ if [[ -f "$ZDOTDIR/.lib/$POWERLINE_PATH" ]]; then
     source "$ZDOTDIR/.lib/$POWERLINE_PATH"
 elif [[ -f "$ZDOTDIR/.local/lib/$POWERLINE_PATH" ]]; then
     source "$ZDOTDIR/.local/lib/$POWERLINE_PATH"
+elif [[ -f "$ZDOTDIR/Library/Python/2.7/lib/python/site-packages/powerline/bindings/zsh/powerline.zsh" ]]; then
+    source "$ZDOTDIR/Library/Python/2.7/lib/python/site-packages/powerline/bindings/zsh/powerline.zsh"
 elif [[ -f "/usr/lib64/$POWERLINE_PATH" ]]; then
     source "/usr/lib64/$POWERLINE_PATH"
 elif [[ -f "/usr/local/lib/$POWERLINE_PATH" ]]; then
