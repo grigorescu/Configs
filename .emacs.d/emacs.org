@@ -1,0 +1,407 @@
+* Common
+
+Generic variables setup
+
+#+begin_src emacs-lisp :tangle lisp/common.el
+(setq debug-on-error t)
+
+(setq user-full-name "Vlad Grigorescu"
+      user-mail-address "vladg@illinois.edu")
+
+(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
+(setenv "PATH" (concat (getenv "PATH") ":/usr/texbin"))
+(setq exec-path (append exec-path '("/usr/local/bin")))
+#+end_src
+
+Require some internal libs
+
+#+begin_src emacs-lisp :tangle lisp/common.el
+(require 'linum)
+(require 'paren)
+#+end_src
+
+Activate some internal features
+
+#+begin_src emacs-lisp :tangle lisp/common.el
+(auto-compression-mode 1)
+(global-auto-revert-mode 1)
+(global-font-lock-mode 1)
+(global-hl-line-mode 1)
+(line-number-mode 1)
+(show-paren-mode 1)
+(transient-mark-mode 1)
+(which-function-mode 1)
+#+end_src
+
+No need backup. Let's be brave.
+
+#+begin_src emacs-lisp :tangle lisp/common.el
+(setq backup-inhibited t
+      make-backup-files nil
+      delete-auto-save-files t
+      auto-save-list-files-prefix nil
+      auto-save-default nil)
+#+end_src
+
+Startup message and scratch buffer setup
+
+#+begin_src emacs-lisp :tangle lisp/common.el
+(setq initial-scratch-message (format ";; Scratch buffer - started on %s\n\n" (current-time-string))
+      inhibit-startup-message t
+      inhibit-startup-echo-area-message "vlad"
+      inhibit-splash-screen t)
+#+end_src
+
+Uniquify the buffer's name
+
+#+begin_src emacs-lisp :tangle lisp/common.el
+(setq uniquify-buffer-name-style 'forward uniquify-separator "/")
+#+end_src
+
+Unicode everywhere!
+
+#+begin_src emacs-lisp :tangle lisp/common.el
+(setq locale-coding-system 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
+#+end_src
+
+* Packages
+** Package manager
+Setup the package manager
+
+#+begin_src emacs-lisp :tangle lisp/packages.el
+(require 'package)
+
+(setq package-user-dir (expand-file-name "./lisp/vendor"))
+
+(setq package-archives
+      '(("melpa"        . "http://melpa.org/packages/")
+        ("gnu"          . "http://elpa.gnu.org/packages/")
+        ("marmalade"    . "http://marmalade-repo.org/packages/")
+        ("org"          . "http://orgmode.org/elpa/")))
+
+(package-initialize)
+
+(when (not package-archive-contents)
+  (package-refresh-contents))
+#+end_src
+
+** Includes
+#+BEGIN_SRC emacs-lisp :tangle lisp/packages.el
+(unless (package-installed-p 'ob-php) (package-install 'ob-php))
+(require 'ob-php)
+
+(unless (package-installed-p 'notmuch) (package-install 'notmuch))
+(require 'notmuch)
+
+(unless (package-installed-p 'color-theme-sanityinc-tomorrow) (package-install 'color-theme-sanityinc-tomorrow))
+(require 'color-theme-sanityinc-tomorrow)
+
+(unless (package-installed-p 'habitica) (package-install 'habitica))
+(require 'habitica)
+
+(unless (package-installed-p 'pinentry) (package-install 'pinentry))
+(require 'pinentry)
+
+(unless (package-installed-p 'yaml-mode) (package-install 'yaml-mode))
+(require 'yaml-mode)
+
+(unless (package-installed-p 'helm-notmuch) (package-install 'helm-notmuch))
+(require 'helm-notmuch)
+
+(unless noninteractive
+(unless (package-installed-p 'magit) (package-install 'magit))
+(require 'magit)
+
+(unless (package-installed-p 'markdown-mode) (package-install 'markdown-mode))
+(require 'markdown-mode)
+
+(unless (package-installed-p 'php-mode) (package-install 'php-mode))
+(require 'php-mode)
+
+(unless (package-installed-p 'flycheck) (package-install 'flycheck))
+(require 'flycheck)
+
+(unless (package-installed-p 'json-mode) (package-install 'json-mode))
+(require 'json-mode)
+
+(unless (package-installed-p 'smart-tabs-mode) (package-install 'smart-tabs-mode))
+(require 'smart-tabs-mode)
+)
+#+END_SRC
+* Look and Feel
+** Basics
+
+Remove GUI crap
+#+BEGIN_SRC emacs-lisp :tangle lisp/look_and_feel.el
+(if window-system
+    (progn
+     (tool-bar-mode -1)
+     (scroll-bar-mode -1)
+     ;; make the fringe thinner (default is 8 in pixels)
+     (fringe-mode 4)
+     ;; And line numbers
+     (global-linum-mode t)
+     )
+)
+#+END_SRC
+
+We always want column numbers
+#+BEGIN_SRC emacs-lisp :tangle lisp/look_and_feel.el
+(column-number-mode t)
+#+END_SRC
+
+Fullscreen!
+#+BEGIN_SRC emacs-lisp :tangle lisp/look_and_feel.el
+(toggle-frame-fullscreen)
+#+END_SRC
+
+Disable errant mouse actions
+#+BEGIN_SRC emacs-lisp :tangle lisp/look_and_feel.el
+(setq mouse-wheel-mode nil)
+(global-set-key [wheel-up] 'ignore)
+(global-set-key [wheel-down] 'ignore)
+(global-set-key [double-wheel-up] 'ignore)
+(global-set-key [double-wheel-down] 'ignore)
+(global-set-key [triple-wheel-up] 'ignore)
+(global-set-key [triple-wheel-down] 'ignore)
+#+END_SRC
+
+This removes an extra pixel from some places
+#+BEGIN_SRC emacs-lisp :tangle lisp/look_and_feel.el
+(set-face-attribute 'mode-line nil :box nil)
+(set-face-attribute 'mode-line-inactive nil :box nil)
+#+END_SRC
+
+Use ZSH
+#+BEGIN_SRC emacs-lisp :tangle lisp/look_and_feel.el
+(setq multi-term-program "/bin/zsh")
+#+END_SRC
+** Use y or n instead of yes or no
+#+BEGIN_SRC emacs-lisp :tangle lisp/look_and_feel.el
+(defalias 'yes-or-no-p 'y-or-n-p)
+#+END_SRC
+** Theme
+#+BEGIN_SRC emacs-lisp :tangle lisp/look_and_feel.el
+(setq ansi-color-names-vector
+   ["#0a0814" "#f2241f" "#67b11d" "#b1951d" "#4f97d7" "#a31db1" "#28def0" "#b2b2b2"])
+
+;;Load sanityinc-tomorrow-night
+(add-hook 'after-init-hook
+	  (lambda ()
+(load-theme 'sanityinc-tomorrow-night t)))
+#+END_SRC
+** Font
+#+BEGIN_SRC emacs-lisp :tangle lisp/look_and_feel.el
+(set-frame-font "Source Code Pro 11" nil t)
+#+END_SRC
+* Org Mode
+** Language setup
+#+BEGIN_SRC emacs-lisp :tangle lisp/org.el
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((css . t)
+   (dot . t)
+   (emacs-lisp . t)
+   (java . t)
+   (js . t)
+   (latex . t)
+   (makefile . t)
+   (perl . t)
+   (php . t)
+   (plantuml . t)
+   (python . t)
+   (ruby . t)
+   (sh . t) 
+   (shell . t)
+   (sql . t)
+   ))
+  (setq org-plantuml-jar-path
+       "/usr/local/Cellar/plantuml/1.2017.19/libexec/plantuml.jar")
+#+END_SRC
+** Tweak how source blocks work
+#+BEGIN_SRC emacs-lisp :tangle lisp/org.el
+(setq org-src-fontify-natively t)
+(setq org-src-tab-acts-natively t)
+#+END_SRC
+** Habitica integration
+#+BEGIN_SRC emacs-lisp :tangle lisp/org.el
+(setq habitica-uid "TODO_HABITICA_UID")
+(setq habitica-token "TODO_HABITICA_TOKEN")
+#+END_SRC
+
+* Mail
+** Basic Settings
+Hit S for Spam
+#+BEGIN_SRC emacs-lisp :tangle lisp/mail.el
+(define-key notmuch-show-mode-map "S"
+  (lambda ()
+    "mark message as spam"
+    (interactive)
+    (notmuch-show-tag (list "+junk" "-inbox" "-unread"))
+    (notmuch-tree-next-matching-message)
+    ))
+#+END_SRC
+Hit T for TODO
+#+BEGIN_SRC emacs-lisp :tangle lisp/mail.el
+(define-key notmuch-show-mode-map "T"
+  (lambda ()
+    "mark message as todo"
+    (interactive)
+    (notmuch-show-tag (list "+todo" "-inbox" "-unread"))
+    (notmuch-tree-next-matching-message)
+    ))
+#+END_SRC
+HTML mail
+#+BEGIN_SRC emacs-lisp :tangle lisp/mail.el
+(setq mm-text-html-renderer 'gnus-w3m)
+(setq gnus-html-frame-width 180)
+#+END_SRC
+Who am I?
+#+BEGIN_SRC emacs-lisp :tangle lisp/mail.el
+(setq user-mail-address "vladg@illinois.edu")
+(setq user-full-name "Vlad Grigorescu")
+#+END_SRC
+Send/receive mail
+#+BEGIN_SRC emacs-lisp :tangle lisp/mail.el
+(setq message-send-mail-function 'message-send-mail-with-sendmail
+      sendmail-program "/usr/local/bin/msmtp")
+(setq mu4e-maildir "~/Mail")
+(setq send-mail-function "smtpmail-send-it")
+(setq smtpmail-smtp-server "smtp.illinois.edu")
+(setq smtpmail-smtp-service 587)
+#+END_SRC
+
+#+RESULTS:
+: 587
+
+Order
+#+BEGIN_SRC emacs-lisp :tangle lisp/mail.el
+(setq notmuch-search-oldest-first nil)
+#+END_SRC
+** Mail categories
+#+BEGIN_SRC emacs-lisp :tangle lisp/mail.el
+(setq notmuch-saved-searches
+      (quote
+       ((:name "inbox" :query "tag:inbox" :key "i")
+        (:name "unread" :query "tag:unread" :key "u")
+        (:name "flagged" :query "tag:flagged" :key "f")
+        (:name "Extended Inbox" :query "tag:extended_inbox" :key "n")
+        (:name "sent" :query "tag:sent" :key "t")
+        (:name "todo" :query "tag:todo" :key "d")
+        (:name "all mail" :query "*" :key "a"))))
+(setq notmuch-archive-tags '("-inbox" "-extended_inbox"))
+#+END_SRC
+** GPG
+#+BEGIN_SRC emacs-lisp :tangle lisp/mail.el
+(add-hook 'message-setup-hook 'mml-secure-message-sign-pgpmime)
+(setq notmuch-crypto-process-mime t)
+#+END_SRC
+
+** Look and Feel
+#+BEGIN_SRC emacs-lisp :tangle lisp/mail.el
+(setq notmuch-column-control t)
+(setq notmuch-search-result-format
+(quote
+  (("date" . "%12s ")
+   ("count" . "%-7s ")
+   ("authors" . "%-30s ")
+   ("subject" . "%s ")
+   ("tags" . "(%s)"))))
+#+END_SRC
+
+** Misc functions
+#+BEGIN_SRC emacs-lisp :tangle lisp/mail.el
+(defun mail-quote ()
+  "quote selection with '> '"
+  (interactive)
+  (string-insert-rectangle (region-beginning) (region-end) "> ")
+  )
+
+(defvar notmuch-hello-refresh-count 0)
+
+(defun notmuch-hello-refresh-status-message ()
+  (unless no-display
+    (let* ((new-count
+            (string-to-number
+             (car (process-lines notmuch-command "count"))))
+           (diff-count (- new-count notmuch-hello-refresh-count)))
+      (cond
+       ((= notmuch-hello-refresh-count 0)
+        (message "You have %s messages."
+                 (notmuch-hello-nice-number new-count)))
+       ((> diff-count 0)
+        (message "You have %s more messages since last refresh."
+                 (notmuch-hello-nice-number diff-count)))
+       ((< diff-count 0)
+        (message "You have %s fewer messages since last refresh."
+                 (notmuch-hello-nice-number (- diff-count)))))
+      (setq notmuch-hello-refresh-count new-count))))
+
+(add-hook 'notmuch-hello-refresh-hook 'notmuch-hello-refresh-status-message)
+#+END_SRC
+** Address Autocompletion
+I should figure out a better approach at some point.
+* SSH
+** TRAMP
+We want control master
+#+BEGIN_SRC emacs-lisp :tangle lisp/ssh.el
+(setq tramp-ssh-controlmaster-options
+  (concat
+    "-o ControlPath=~/.ssh/master-%%r@%%h:%%p "
+    "-o ControlMaster=auto -o ControlPersist=yes"))
+#+END_SRC
+Provide an easy way to re-open the file as root (via sudo)
+#+BEGIN_SRC emacs-lisp :tangle lisp/ssh.el
+(set-default 'tramp-default-proxies-alist (quote ((".*" "\\`root\\'" "/ssh:%h:"))))
+(require 'tramp)
+(defun sudo-edit-current-file ()
+  (interactive)
+  (let ((position (point)))
+    (find-alternate-file
+     (if (file-remote-p (buffer-file-name))
+         (let ((vec (tramp-dissect-file-name (buffer-file-name))))
+           (tramp-make-tramp-file-name
+            "sudo"
+            (tramp-file-name-user vec)
+            (tramp-file-name-host vec)
+            (tramp-file-name-localname vec)))
+       (concat "/sudo:root@localhost:" (buffer-file-name))))
+    (goto-char position)))
+(global-set-key [(control x) (control r)] 'sudo-edit-current-file)
+#+END_SRC
+* Coding Style
+** Smart tabs
+#+BEGIN_SRC emacs-lisp :tangle lisp/style.el
+(smart-tabs-insinuate 'c 'c++ 'java 'javascript 'python 'ruby)
+(setq tab-width 4) 
+#+END_SRC
+* Startup
+What should happen when emacs starts?
+#+BEGIN_SRC emacs-lisp :tangle lisp/startup.el
+(find-file "~/.emacs.d/emacs.org")
+(find-file "~/.spacemacs_removal_bkup/.spacemacs_goodies")
+(find-file "~/todo.org")
+#+END_SRC
+Start pinentry
+#+BEGIN_SRC emacs-lisp :tangle lisp/startup.el
+(setenv "INSIDE_EMACS" (format "%s,comint" emacs-version))
+(pinentry-start)
+#+END_SRC
+* Bootstrap
+
+We create a bootstrap file to load all the lisp files that were generated by the code blocks above
+
+#+begin_src emacs-lisp :tangle emacs.el
+(load-file (expand-file-name "lisp/common.el" user-emacs-directory))
+(load-file (expand-file-name "lisp/packages.el" user-emacs-directory))
+(load-file (expand-file-name "lisp/look_and_feel.el" user-emacs-directory))
+(load-file (expand-file-name "lisp/org.el" user-emacs-directory))
+(load-file (expand-file-name "lisp/mail.el" user-emacs-directory))
+(load-file (expand-file-name "lisp/ssh.el" user-emacs-directory))
+(load-file (expand-file-name "lisp/style.el" user-emacs-directory))
+(load-file (expand-file-name "lisp/startup.el" user-emacs-directory))
+#+end_src
